@@ -8,7 +8,7 @@ fi
 
 if [ ! -d /home/git/.gitolite ]; then
     if [ ! -f /tmp/admin.pub ]; then
-      echo "/tmp/admin.pub is missing !"
+      echo "/tmp/admin.pub must exists for the setup !"
       exit 1
     fi
 
@@ -18,7 +18,11 @@ if [ ! -d /home/git/.gitolite ]; then
     sudo -H -u git sh -c '~/gitolite/install -ln'
     sudo -H -u git sh -c '~/bin/gitolite setup -pk /tmp/admin.pub'
 else
-  sudo -H -u git sh -c '~/bin/gitolite setup'
+    if [ ! -f /tmp/admin.pub ]; then
+      sudo -H -u git sh -c '~/bin/gitolite setup -pk /tmp/admin.pub'
+    else
+      sudo -H -u git sh -c '~/bin/gitolite setup'
+    fi
 fi
 
 /usr/sbin/sshd -D
