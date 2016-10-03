@@ -19,9 +19,9 @@ if [ ! -d /home/git/.gitolite ]; then
     sudo -H -u git sh -c '~/bin/gitolite setup -pk /tmp/admin.pub'
 else
     if [ ! -f /tmp/admin.pub ]; then
-      sudo -H -u git sh -c '~/bin/gitolite setup -pk /tmp/admin.pub'
-    else
       sudo -H -u git sh -c '~/bin/gitolite setup'
+    else
+      sudo -H -u git sh -c '~/bin/gitolite setup -pk /tmp/admin.pub'
     fi
 fi
 
